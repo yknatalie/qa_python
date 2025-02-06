@@ -1,6 +1,8 @@
+import pytest
+
 from main import BooksCollector
 
-import pytest
+
 # класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
 # обязательно указывать префикс Test
 class TestBooksCollector:
@@ -26,7 +28,9 @@ class TestBooksCollector:
     def test_add_new_book_new_book_added(self, collector):
         collector.add_new_book("Война и Мир")
         assert "Война и Мир" in collector.books_genre
-    @pytest.mark.parametrize("length", ["Г", 'ГамарджобаГамарджоба', 'ГамарджобаГамарджобаГамарджобаГамарджоба'])
+
+    @pytest.mark.parametrize("length", ["Г", 'ГамарджобаГамарджоба',
+                                        'ГамарджобаГамарджобаГамарджобаГамарджоба'])
     def test_add_new_book_valid_length(self, length):
         new_collector = BooksCollector()
         new_collector.add_new_book(length)
@@ -39,9 +43,9 @@ class TestBooksCollector:
         new_collector.add_new_book(length)
         assert not length in new_collector.books_genre
 
-    def test_add_new_book_value_is_empty_string(self,collector):
+    def test_add_new_book_value_is_empty_string(self, collector):
         collector.add_new_book("Мастер и Маргарита")
-        assert  collector.books_genre["Мастер и Маргарита"] == ''
+        assert collector.books_genre["Мастер и Маргарита"] == ''
 
     def test_set_book_genre_genre_is_set(self, collector):
         collector.set_book_genre("Карлсон", "Детективы")
@@ -51,23 +55,23 @@ class TestBooksCollector:
         collector.set_book_genre("Аляска", "Детективы")
         assert not "Аляска" in collector.books_genre
 
-    def test_set_book_genre_invalid_genre(self,collector):
+    def test_set_book_genre_invalid_genre(self, collector):
         collector.set_book_genre("Карлсон", "Анимэ")
         assert not collector.books_genre["Карлсон"] == "Анимэ"
 
-    def test_get_book_genre_true(self,collector):
+    def test_get_book_genre_true(self, collector):
         genre = collector.get_book_genre("Аэлита")
         assert genre == "Фантастика"
 
-    def test_get_books_with_specific_genre_true(self,collector):
+    def test_get_books_with_specific_genre_true(self, collector):
         books = collector.get_books_with_specific_genre("Фантастика")
         assert books == ["Аэлита"]
 
-    def test_get_books_genre_true(self,collector):
+    def test_get_books_genre_true(self, collector):
         books_genre = collector.get_books_genre()
         assert books_genre == collector.books_genre
 
-    def test_get_books_for_children_no_adult_genres(self,collector):
+    def test_get_books_for_children_no_adult_genres(self, collector):
         books_for_children = collector.get_books_for_children()
         assert not "Ужасы" in books_for_children and "Детективы" not in books_for_children
 
@@ -79,7 +83,7 @@ class TestBooksCollector:
         collector.add_book_in_favorites("Смарт")
         assert not "Смарт" in collector.favorites
 
-    def test_delete_book_from_favorites(self,collector_with_favorites):
+    def test_delete_book_from_favorites(self, collector_with_favorites):
         collector_with_favorites.delete_book_from_favorites("Шерлок Холмс")
         assert "Шерлок Холмс" not in collector_with_favorites.favorites
 
