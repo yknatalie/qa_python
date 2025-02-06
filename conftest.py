@@ -12,11 +12,7 @@ def collector():
 
 
 @pytest.fixture
-def collector_with_favorites():
-    collector_with_favorites = BooksCollector()
-    collector_with_favorites.books_genre = {"Аэлита": "Фантастика", "Мгла": "Ужасы",
-                                            "Шерлок Холмс": "Детективы",
-                                            "Карлсон": "Мультфильмы",
-                                            "Покровские ворота": "Комедии"}
+def collector_with_favorites(collector):
+    collector_with_favorites = collector
     collector_with_favorites.favorites = ["Покровские ворота", 'Шерлок Холмс']
     return collector_with_favorites

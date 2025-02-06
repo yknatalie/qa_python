@@ -41,7 +41,7 @@ class TestBooksCollector:
     def test_add_new_book_invalid_length(self, length):
         new_collector = BooksCollector()
         new_collector.add_new_book(length)
-        assert not length in new_collector.books_genre
+        assert length not in new_collector.books_genre
 
     def test_add_new_book_value_is_empty_string(self, collector):
         collector.add_new_book("Мастер и Маргарита")
@@ -69,7 +69,8 @@ class TestBooksCollector:
 
     def test_get_books_genre_true(self, collector):
         books_genre = collector.get_books_genre()
-        assert books_genre == collector.books_genre
+        assert books_genre == {"Аэлита": "Фантастика", "Мгла": "Ужасы", "Шерлок Холмс": "Детективы",
+                               "Карлсон": "Мультфильмы", "Покровские ворота": "Комедии"}
 
     def test_get_books_for_children_no_adult_genres(self, collector):
         books_for_children = collector.get_books_for_children()
